@@ -1,5 +1,7 @@
 # LureBarrier
 
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A high-frequency dynamic signature ruleset for mitigating phishing attacks.
 Automated pipeline ingests community threat feeds, performs structural analysis
 of newly registered domains, and generates Suricata detection rules for DNS, TLS,
