@@ -35,7 +35,7 @@ banner = """\033[32m
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣤⣤⣶⣾⣿⣿⣿⣿
 SID range: 6000000-6100000 ⣿⣿⣿
 \033[0m
-https://github.com/Adepoju/LureBarrier
+https://github.com/boluwaji/DomainSieve
 """
 
 def fetch_phishing_urls(url):
@@ -122,7 +122,7 @@ def create_suricata_rules(urls, reference, last_sid, existing_rules):
 
                 # Check whether the domain/path already exists in the rules
                 if not is_domain_in_rules(domain, existing_rules):
-                    rule = f'alert http $HOME_NET any -> any any (msg:"LureBarrier related malicious URL ({msg_domain})"; flow:established,to_server; http.uri; content:"{path}"; startswith; fast_pattern; http.host; content:"{domain.lower()}"; endswith; reference:url,{reference}; reference:url,/AT/signature.html?sid={sid}; classtype:social-engineering; sid:{sid}; rev:1; metadata: signature_severity Major, created_et {current_data};)\n'
+                    rule = f'alert http $HOME_NET any -> any any (msg:"DomainSieve related malicious URL ({msg_domain})"; flow:established,to_server; http.uri; content:"{path}"; startswith; fast_pattern; http.host; content:"{domain.lower()}"; endswith; reference:url,{reference}; reference:url,/AT/signature.html?sid={sid}; classtype:social-engineering; sid:{sid}; rev:1; metadata: signature_severity Major, created_et {current_data};)\n'
                     sid += 1
 
             if rule:
@@ -186,7 +186,7 @@ def update_from_index():
             rule_str = re.sub(r"sid:\d+;", f"sid:{sid};", rule_str)
             rule_str = re.sub(r"signature\.html\?sid=\d+", f"signature.html?sid={sid}", rule_str)
         else:
-            m = re.match(r"^LureBarrier related malicious URL \((.*)\)$", msg)
+            m = re.match(r"^DomainSieve related malicious URL \((.*)\)$", msg)
             if m:
                 new_phish_url = m.group(1)
                 phish_url = new_phish_url.replace(" .", ".").replace(r"\;", ";")
@@ -206,7 +206,7 @@ def update_from_index():
                 domain = ''.join(c for c in domain if unicodedata.category(c)[0] != 'C')
                 msg_domain = ''.join(c for c in msg_domain if unicodedata.category(c)[0] != 'C')
                 current_data = datetime.now().strftime("%Y_%m_%d")
-                rule_str = f'alert http $HOME_NET any -> any any (msg:"LureBarrier related malicious URL ({msg_domain})"; flow:established,to_server; http.uri; content:"{path}"; startswith; fast_pattern; http.host; content:"{domain.lower()}"; endswith; reference:url,phishstats.info; reference:url,/AT/signature.html?sid={sid}; classtype:social-engineering; sid:{sid}; rev:1; metadata: signature_severity Major, created_et {current_data};)\n'
+                rule_str = f'alert http $HOME_NET any -> any any (msg:"DomainSieve related malicious URL ({msg_domain})"; flow:established,to_server; http.uri; content:"{path}"; startswith; fast_pattern; http.host; content:"{domain.lower()}"; endswith; reference:url,phishstats.info; reference:url,/AT/signature.html?sid={sid}; classtype:social-engineering; sid:{sid}; rev:1; metadata: signature_severity Major, created_et {current_data};)\n'
             else:
                 continue
 
@@ -228,14 +228,14 @@ def update_from_index():
     if duplicates_skipped:
         print(f"Deduplication: {duplicates_skipped} rule(s) removed (same http.host already present).")
 
-    domain_rule = 'alert dns $HOME_NET any -> any any (msg:"LureBarrier DNS query to suspicious domain - Phishing"; dns.query; dataset:isset,phishing_domains,type string; reference:url,https://github.com/Adepoju/LureBarrier; classtype:social-engineering; sid:6000000; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n\nalert tls $HOME_NET any -> any any (msg:"LureBarrier TLS SNI to suspicious domain - Phishing"; tls.sni; dataset:isset,phishing_domains,type string; reference:url,https://github.com/Adepoju/LureBarrier; reference:url,/AT/signature.html?sid=6000001; classtype:social-engineering; sid:6000001; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n'
+    domain_rule = 'alert dns $HOME_NET any -> any any (msg:"LureBarrier DNS query to suspicious domain - Phishing"; dns.query; dataset:isset,phishing_domains,type string; reference:url,https://github.com/boluwaji/DomainSieve; classtype:social-engineering; sid:6000000; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n\nalert tls $HOME_NET any -> any any (msg:"LureBarrier TLS SNI to suspicious domain - Phishing"; tls.sni; dataset:isset,phishing_domains,type string; reference:url,https://github.com/Adepoju/LureBarrier; reference:url,/AT/signature.html?sid=6000001; classtype:social-engineering; sid:6000001; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n'
 
     current_time = datetime.now()
     gmt_offset = current_time.astimezone().strftime('%z')
     formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
 
     header = f"""# Suricata LureBarrier rules
-# Created by https://github.com/Adepoju/LureBarrier
+# Created by https://github.com/boluwaji/DomainSieve
 # Last updated: {formatted_time} GMT{gmt_offset}
 # SID range: 6000000-6100000
 #
@@ -311,14 +311,14 @@ def main():
     )
 
     # Keep the fixed DNS rule and add the new rules
-    domain_rule = 'alert dns $HOME_NET any -> any any (msg:"LureBarrier DNS query to suspicious domain - Phishing"; dns.query; dataset:isset,phishing_domains,type string; reference:url,https://github.com/Adepoju/LureBarrier; classtype:social-engineering; sid:6000000; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n\nalert tls $HOME_NET any -> any any (msg:"LureBarrier TLS SNI to suspicious domain - Phishing"; tls.sni; dataset:isset,phishing_domains,type string; reference:url,https://github.com/Adepoju/LureBarrier; reference:url,/AT/signature.html?sid=6000001; classtype:social-engineering; sid:6000001; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n'
+    domain_rule = 'alert dns $HOME_NET any -> any any (msg:"LureBarrier DNS query to suspicious domain - Phishing"; dns.query; dataset:isset,phishing_domains,type string; reference:url,https://github.com/boluwaji/DomainSieve; classtype:social-engineering; sid:6000000; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n\nalert tls $HOME_NET any -> any any (msg:"LureBarrier TLS SNI to suspicious domain - Phishing"; tls.sni; dataset:isset,phishing_domains,type string; reference:url,https://github.com/Adepoju/LureBarrier; reference:url,/AT/signature.html?sid=6000001; classtype:social-engineering; sid:6000001; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n'
     
     current_time = datetime.now()
     gmt_offset = current_time.astimezone().strftime('%z')
     formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
     
     header = f"""# Suricata LureBarrier rules
-# Created by https://github.com/Adepoju/LureBarrier
+# Created by https://github.com/boluwaji/DomainSieve
 # Last updated: {formatted_time} GMT{gmt_offset}
 # SID range: 6000000-6100000
 #
