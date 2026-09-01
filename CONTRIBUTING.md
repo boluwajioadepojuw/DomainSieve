@@ -1,6 +1,6 @@
-# Contributing to LureBarrier
+# Contributing to DomainSieve
 
-Thank you for your interest in contributing to the LureBarrier project! We welcome community contributions to help keep this Suricata ruleset updated and effective against malicious threats.
+Thank you for your interest in contributing to the DomainSieve project! We welcome community contributions to help keep this Suricata ruleset updated and effective against malicious threats.
 
 Please review the following guidelines to ensure a smooth contribution process.
 

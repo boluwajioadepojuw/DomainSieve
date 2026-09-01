@@ -228,13 +228,13 @@ def update_from_index():
     if duplicates_skipped:
         print(f"Deduplication: {duplicates_skipped} rule(s) removed (same http.host already present).")
 
-    domain_rule = 'alert dns $HOME_NET any -> any any (msg:"LureBarrier DNS query to suspicious domain - Phishing"; dns.query; dataset:isset,phishing_domains,type string; reference:url,https://github.com/boluwaji/DomainSieve; classtype:social-engineering; sid:6000000; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n\nalert tls $HOME_NET any -> any any (msg:"LureBarrier TLS SNI to suspicious domain - Phishing"; tls.sni; dataset:isset,phishing_domains,type string; reference:url,https://github.com/Adepoju/LureBarrier; reference:url,/AT/signature.html?sid=6000001; classtype:social-engineering; sid:6000001; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n'
+    domain_rule = 'alert dns $HOME_NET any -> any any (msg:"DomainSieve DNS query to suspicious domain - Phishing"; dns.query; dataset:isset,phishing_domains,type string; reference:url,https://github.com/boluwaji/DomainSieve; classtype:social-engineering; sid:6000000; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n\nalert tls $HOME_NET any -> any any (msg:"DomainSieve TLS SNI to suspicious domain - Phishing"; tls.sni; dataset:isset,phishing_domains,type string; reference:url,https://github.com/boluwaji/DomainSieve; reference:url,/AT/signature.html?sid=6000001; classtype:social-engineering; sid:6000001; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n'
 
     current_time = datetime.now()
     gmt_offset = current_time.astimezone().strftime('%z')
     formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
 
-    header = f"""# Suricata LureBarrier rules
+    header = f"""# Suricata DomainSieve rules
 # Created by https://github.com/boluwaji/DomainSieve
 # Last updated: {formatted_time} GMT{gmt_offset}
 # SID range: 6000000-6100000
@@ -267,7 +267,7 @@ def main():
         return
 
     print(banner)
-    print("\nStarting LureBarrier Update...\n")
+    print("\nStarting DomainSieve Update...\n")
 
     process_nrd_list()
     # Read the existing rules
@@ -311,13 +311,13 @@ def main():
     )
 
     # Keep the fixed DNS rule and add the new rules
-    domain_rule = 'alert dns $HOME_NET any -> any any (msg:"LureBarrier DNS query to suspicious domain - Phishing"; dns.query; dataset:isset,phishing_domains,type string; reference:url,https://github.com/boluwaji/DomainSieve; classtype:social-engineering; sid:6000000; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n\nalert tls $HOME_NET any -> any any (msg:"LureBarrier TLS SNI to suspicious domain - Phishing"; tls.sni; dataset:isset,phishing_domains,type string; reference:url,https://github.com/Adepoju/LureBarrier; reference:url,/AT/signature.html?sid=6000001; classtype:social-engineering; sid:6000001; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n'
+    domain_rule = 'alert dns $HOME_NET any -> any any (msg:"DomainSieve DNS query to suspicious domain - Phishing"; dns.query; dataset:isset,phishing_domains,type string; reference:url,https://github.com/boluwaji/DomainSieve; classtype:social-engineering; sid:6000000; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n\nalert tls $HOME_NET any -> any any (msg:"DomainSieve TLS SNI to suspicious domain - Phishing"; tls.sni; dataset:isset,phishing_domains,type string; reference:url,https://github.com/boluwaji/DomainSieve; reference:url,/AT/signature.html?sid=6000001; classtype:social-engineering; sid:6000001; rev:1; metadata: signature_severity Major, created_et 2025_02_19;)\n'
     
     current_time = datetime.now()
     gmt_offset = current_time.astimezone().strftime('%z')
     formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
     
-    header = f"""# Suricata LureBarrier rules
+    header = f"""# Suricata DomainSieve rules
 # Created by https://github.com/boluwaji/DomainSieve
 # Last updated: {formatted_time} GMT{gmt_offset}
 # SID range: 6000000-6100000
