@@ -1,0 +1,9 @@
+Sample live run -- 03/09/2026
+
+[+] Fetching daily NRD feed from https://raw.githubusercontent.com/cbuijs/nrd/main/nrd-1d.domains.list...
+[+] Successfully fetched 1323 NRD records.
+[+] Generating dnstwist permutations for 41 target brand domains...
+[+] Total dnstwist permutations generated: 134674
+[+] Analyzing 1323 unique NRD domains for phishing structures...
+[+] Detected 34 new suspicious NRD domains.
+[+] Processed NRD entries successfully saved to 'nrd_suspicious_domains.txt' and 'phishing.lst'.
