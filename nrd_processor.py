@@ -145,9 +145,9 @@ def process_nrd_list():
                     file_handle.write(f"{encoded_domain}\n")
                     existing_phishing_base64.add(encoded_domain)
 
-        print(f"[✓] Processed NRD entries successfully saved to '{NRD_SUSPICIOUS_FILE}' and '{PHISHING_LST_FILE}'.")
+        print(f"[] Processed NRD entries successfully saved to '{NRD_SUSPICIOUS_FILE}' and '{PHISHING_LST_FILE}'.")
     else:
-        print("[✓] No new suspicious NRD domains detected.")
+        print("[] No new suspicious NRD domains detected.")
 
 if __name__ == "__main__":
     process_nrd_list()

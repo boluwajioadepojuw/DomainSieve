@@ -6,7 +6,7 @@ Please review the following guidelines to ensure a smooth contribution process.
 
 ---
 
-## 💻 Code Style Guidelines
+##  Code Style Guidelines
 
 This project strictly follows the **PEP 8** style guide for Python code. Before submitting any Python script modifications, please ensure your code complies with the following:
 
@@ -17,7 +17,7 @@ This project strictly follows the **PEP 8** style guide for Python code. Before 
 
 ---
 
-## 🛡️ Types of Contributions
+## ️ Types of Contributions
 
 ### 1. Attack Signatures (HTTP/TLS Rules)
 If you want to add or modify malicious URL signatures:
@@ -41,7 +41,7 @@ For any bugs, feature requests, or general rule updates where you cannot provide
 
 ---
 
-## ☕ Financial Contributions
+##  Financial Contributions
 
 Maintaining this project requires active resources, automated testing environments, and software licenses. If you find this ruleset valuable and would like to support its ongoing development and maintenance, financial contributions are greatly appreciated.
 
@@ -52,7 +52,7 @@ You can donate directly via **Pix**:
 
 ---
 
-## 🚀 How to Submit a Pull Request
+##  How to Submit a Pull Request
 
 1. **Fork** the repository.
 2. **Clone** your fork locally: `git clone https://github.com...`
