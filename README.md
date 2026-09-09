@@ -1,12 +1,12 @@
 # DomainSieve
 
+A dynamic signature ruleset for catching phishing domains before they get
+used. An automated pipeline pulls community threat feeds, checks newly
+registered domains for structure problems, and turns the findings into
+Suricata detection rules for DNS, TLS, and HTTP.
 
-A high-frequency dynamic signature ruleset for mitigating phishing attacks.
-Automated pipeline ingests community threat feeds, performs structural analysis
-of newly registered domains, and generates Suricata detection rules for DNS, TLS,
-and HTTP layers.
+What it covers:
 
-Features:
 - Newly Registered Domain (NRD) monitoring pipeline
 - dnstwist typosquatting and homoglyph detection
 - Automated Suricata rule generation (SIDs 6000000-6100000)
