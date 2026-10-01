@@ -19,6 +19,12 @@ plus an md5 for the distribution pipeline.
 Output files: sieve-nrd-domains.txt (plain), sieve-hits.lst (base64),
 sieve.rules + sieve.rules.md5 (for the gateway).
 
+## Screenshot
+
+Rule build from the live hit list (243k domains -> 729k rules):
+
+![DomainSieve rule build](screenshots/domainsieve-rulebuild.png)
+
 ## Why this shape
 
 One feed, one pass, three rule types. No dashboard, no API, no state
@@ -39,3 +45,15 @@ See docs/sample-run.txt for a real run against the feed.
 ## Author
 
 Boluwaji Oluwaseyi Adepoju
+
+## Data flow
+
+```mermaid
+flowchart LR
+    A[NRD daily feed] --> B[sieve_feed_processor]
+    B --> C{dnstwist permutation or brand + bait word?}
+    C -->|yes| D[sieve-hits.lst - base64]
+    C -->|no| E[discarded]
+    D --> F[sieve_rule_builder]
+    F --> G[Suricata DNS/TLS/HTTP rules with tracked SIDs]
+```
