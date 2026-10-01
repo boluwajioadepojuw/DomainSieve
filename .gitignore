@@ -20,3 +20,6 @@ yarn.lock
 .pytest_cache/
 .benchmarks/
 sieve.rules
+sieve-hits.lst
+sieve.rules.md5
+

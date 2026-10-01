@@ -1,5 +1,7 @@
 # DomainSieve
 
+[![CI](https://github.com/boluwajioadepojuw/DomainSieve/actions/workflows/ci.yml/badge.svg)](https://github.com/boluwajioadepojuw/DomainSieve/actions/workflows/ci.yml)
+
 A phishing-domain sieve for a small SOC: every day it downloads the Newly
 Registered Domains feed, keeps the domains that look like brand
 impersonation, and turns them into Suricata rules the gateway can load.
@@ -16,8 +18,15 @@ when its leetspeak form decodes to a brand.
 Suricata rules with tracked SIDs (6000002 and up) into sieve.rules,
 plus an md5 for the distribution pipeline.
 
-Output files: sieve-nrd-domains.txt (plain), sieve-hits.lst (base64),
-sieve.rules + sieve.rules.md5 (for the gateway).
+Output files: sieve-nrd-domains.txt (plain sample), sieve-hits.lst
+(base64, generated - gitignored), sieve.rules + sieve.rules.md5 (for the
+gateway). Run the two scripts to regenerate the full artifact set from
+the live feed.
+
+Note on scale: 243k domains expand to 729k rules. For a home gateway,
+cap the hit list (head -n N on sieve-hits.lst) or raise the dnstwist
+threshold before building - the pipeline is one pass, so tuning is a
+single parameter change.
 
 ## Screenshot
 
@@ -41,6 +50,14 @@ python3 sieve_rule_builder.py        # emit Suricata rules
 ```
 
 See docs/sample-run.txt for a real run against the feed.
+
+## Related projects
+
+- [SOCAtelier](https://github.com/boluwajioadepojuw/SOCAtelier) - the SOC lab whose gateway loads these rules
+- [SigScope](https://github.com/boluwajioadepojuw/SigScope) - ATT&CK coverage gate for the Sigma rules behind the detections
+- [SplunkHarbor](https://github.com/boluwajioadepojuw/SplunkHarbor) - Splunk ingestion for the same telemetry
+- [IocVerdict](https://github.com/boluwajioadepojuw/IocVerdict) - IOC enrichment for the indicators these rules surface
+- [ArpSieve](https://github.com/boluwajioadepojuw/ArpSieve) - ARP spoofing detection on the local segment
 
 ## Author
 
