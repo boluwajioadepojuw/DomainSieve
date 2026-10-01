@@ -52,7 +52,7 @@ def build_rules(domains: list, start_sid: int) -> list:
     rules = []
     sid = start_sid
     for domain in domains:
-        escaped = domain.replace(".", "\.")
+        escaped = domain.replace(".", "\\.")
         rules.append(
             f'alert dns any any -> any any (msg:"SIEVE typosquat lookup {domain}"; '
             f'dns.query; content:".{escaped}"; nocase; sid:{sid}; rev:1;)'
